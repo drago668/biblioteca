@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block title %}home{% endblock %}
+
+{% block content %}
+
+<style>
+  body {
+    font-family: sans-serif;
+  }
+
+  .stats {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .card {
+    flex: 1;
+    padding: 1rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h2 {
+    margin: 0.5rem 0;
+    font-size: 2rem;
+  }
+
+  .card p {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+  }
+
+  .pending-list {
+    margin-top: 2rem;
+  }
+
+  .pending-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .pending-list th,
+  .pending-list td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+</style>
+
+<h1>Bienvenido al Panel del Bibliotecario</h1>
+
+<div class="stats">
+  <div class="card">
+    <p>Total de libros</p>
+    <h2>{{ total_libros }}</h2>
+  </div>
+  <div class="card">
+    <p>Total de autores</p>
+    <h2>{{ total_autores }}</h2>
+  </div>
+  <div class="card">
+    <p>Total de géneros</p>
+    <h2>{{ total_generos }}</h2>
+  </div>
+  <div class="card">
+    <p>Préstamos pendientes</p>
+    <h2>{{ total_pendientes }}</h2>
+  </div>
+</div>
+
+{% if prestamos_pendientes %}
+<div class="pending-list">
+  <h2>Préstamos Pendientes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Libro</th>
+        <th>Usuario</th>
+        <th>Fecha de préstamo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prestamo in prestamos_pendientes %}
+      <tr>
+        <td>{{ prestamo.libro.titulo }}</td>
+        <td>{{ prestamo.usuario.nombre }}</td>
+        <td>{{ prestamo.fecha_prestamo }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p>No hay préstamos pendientes.</p>
+{% endif %}
+{% endblock %}

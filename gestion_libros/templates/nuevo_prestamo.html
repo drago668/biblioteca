@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}prestamos{% endblock %}
+
+{% block content %}
+{%load static%}
+<section>
+  <h1>Nuevo Préstamo</h1>
+  <form method="post">
+    {% csrf_token %}
+
+    <label for="libro_id">Selecciona un libro:</label>
+    <select id="libro_id" name="libro_id" required>
+      <option value=""> Selecciona un libro </option>
+      {% for libro in libros %}
+      <option value="{{ libro.id }}">{{ libro.titulo }}</option>
+      {% endfor %}
+    </select><br>
+
+    <label for="usuario_id">Selecciona un usuario:</label>
+    <select id="usuario_id" name="usuario_id" required>
+      <option value="">Selecciona un usuario</option>
+      {% for usuario in usuarios %}
+      <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
+      {% endfor %}
+    </select><br>
+
+    <label for="fecha_devolucion">Fecha de Devolución:</label>
+    <input type="date" id="fecha_devolucion" name="fecha_devolucion" required><br>
+
+    <button type="submit">Registrar Préstamo</button>
+  </form>
+  <p><a href="{% url 'solicitudes_pendientes' %}">Ver préstamos activos</a></p>
+</section>
+{%endblock%}

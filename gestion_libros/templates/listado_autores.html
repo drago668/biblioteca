@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}home{% endblock %}
+
+{% block content %}
+{%load static%}
+<section>
+    <h1>Autores Registrados</h1>
+  <ul>
+    {% for autor in autores %}
+      <li>Autor: {{ autor.nombre }}     | Nacionalidad {{autor.nacionalidad}}</li>
+    {% empty %}
+      <li>No hay autores registrados.</li>
+    {% endfor %}
+  </ul>
+  <p><a href="{% url 'alta_autor' %}">Agregar nuevo autor</a></p>
+
+</section>
+{%endblock%}

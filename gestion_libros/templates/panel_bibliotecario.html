@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}home{% endblock %}
+
+{% block content %}
+{%load static%}
+<section>   <h1>Registrar Préstamo</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="libro_id">Libro:</label>
+        <select name="libro_id" id="libro_id" required>
+            <option value="">-- Selecciona un libro --</option>
+            {% for libro in libros_disponibles %}
+                <option value="{{ libro.id }}">{{ libro.titulo }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="usuario_id">Usuario:</label>
+        <select name="usuario_id" id="usuario_id" required>
+            <option value="">-- Selecciona un usuario --</option>
+            {% for usuario in usuarios %}
+                <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="fecha_devolucion">Fecha de devolución:</label>
+        <input type="date" name="fecha_devolucion" id="fecha_devolucion" required>
+        <br><br>
+
+        <button type="submit">Registrar Préstamo</button>
+    </form>
+</section>
+ 
+{%endblock%}

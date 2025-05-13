@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}listado de libros{% endblock %}
+
+{% block content %}
+{%load static%}
+
+  <h1>Libros en la Biblioteca</h1>
+  <form method="get">
+    <input type="text" name="q"   value="{{ q }}"  placeholder="Buscar por título, autor o género…">
+    <button type="submit">Buscar</button>
+  </form>
+  <ul>
+    {% for libro in libros %}
+    <section>
+      <li style="list-style: none;">
+
+        <h3><strong>{{ libro.titulo }}</strong> ({{ libro.año_publicacion }})</h3>
+        {% if libro.imagen1 %}
+        <img src="{{ MEDIA_URL }}{{ libro.imagen1 }}" alt="Imagen 1 de {{ libro.titulo }}" width="200">
+        {% endif %}
+
+        {% if libro.imagen2 %}
+        <img src="{{ MEDIA_URL }}{{ libro.imagen2 }}" alt="Imagen 2 de {{ libro.titulo }}" width="200">
+        {% endif %}
+
+        {% if libro.imagen3 %}
+        <img src="{{ MEDIA_URL }}{{ libro.imagen3 }}" alt="Imagen 3 de {{ libro.titulo }}" width="200">
+        {% endif %}
+        <p><strong>Genero:</strong> {{ libro.genero }}</p>
+        <p></p><br>
+        Autor: {{ libro.autor.nombre }}
+      </li>
+    </section>
+    {% empty %}
+    <li>No se encontraron libros.</li>
+    {% endfor %}
+  </ul>
+  <p><a href="{% url 'crear_libro' %}">Agregar nuevo libro</a></p>
+{%endblock%}

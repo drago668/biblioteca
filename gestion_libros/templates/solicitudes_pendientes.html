@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Solicitudes de Préstamo Pendientes</h2>
+    <ul>
+        {% for solicitud in solicitudes %}
+        <li>
+            Libro: {{ solicitud.libro.titulo }} - Solicitado por: {{ solicitud.usuario_solicitante.nombre }}
+            <a href="{% url 'procesar_solicitud' solicitud.id 'aceptar' %}">Aceptar</a>
+            <a href="{% url 'procesar_solicitud' solicitud.id 'rechazar' %}">Rechazar</a>
+        </li>
+        {%empty%}
+        <div>
+            no hay solicitudes de prestamos
+        </div>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>
